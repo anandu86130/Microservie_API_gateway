@@ -1,0 +1,66 @@
+syntax = "proto3";
+
+package pbU;
+
+option go_package = "./";
+
+service UserServices{
+    rpc Signup(SignupRequest)returns(SignupResponse);    
+    rpc VerifyOTP(VerifyOTPRequest)returns(VerifyOTPResponse);
+    rpc Login(LoginRequest)returns(LoginResponse);
+    rpc UserProductList(RNoParam)returns(ProductDetails);
+    rpc UserProductByName(ProductByName)returns(ProductDetails);
+    rpc UserProductByID(ProductID)returns(ProductDetails);
+}
+
+message SignupRequest{
+    string email = 1;
+}
+
+message SignupResponse{
+    string message = 1;
+}
+
+message VerifyOTPRequest{
+    string email = 1;
+    string otp = 2;
+}
+
+message VerifyOTPResponse{
+    string message = 1;
+    string token = 2;
+}
+
+message LoginRequest{
+    string email = 1;
+}
+
+message LoginResponse{
+    string email = 1;
+    string token = 2;
+}
+
+message RNoParam {}
+
+message ProductDetails{
+    uint32 id = 1;
+    string category = 2;
+    string name = 3;
+    double price = 4;
+    string imagepath = 5;
+    string description = 6;
+    string size = 7;
+    uint32 quantity = 8;
+}
+
+message ProductByName{
+    string name = 1;
+}
+
+message ProductID{
+    uint32 id = 1;
+}
+
+message ProductList{
+    repeated ProductDetails item = 1;
+}

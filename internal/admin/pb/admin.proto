@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package pbA;
+
+option go_package = "./";
+
+service AdminService{
+    rpc AdminLogin(AdminRequest)returns(AdminResponse);
+    rpc CreateProduct(AProductDetails)returns(AdminResponse);
+    rpc FetchByProductID(AProductByID)returns(AProductDetails);
+    rpc FetchByName(AProductByName)returns(AProductDetails);
+    rpc FetchProducts(AdminNoParam)returns(AProductList);
+}
+
+message AdminNoParam{}
+
+message AdminRequest{
+    string username = 1;
+    string password = 2;
+    string role = 3;
+}
+
+message AdminResponse{
+    string status = 1;
+    string error = 2;
+    string message = 3;
+}
+
+message AProductDetails{
+    uint32 id = 1;
+    string category = 2;
+    string name = 3;
+    double price = 4;
+    string imagepath = 5;
+    string description = 6;
+    string size = 7;
+    uint32 quantity = 8;
+}
+
+message AProductByID{
+    uint32 id = 1;
+}
+
+message AProductByName{
+    string name = 1;
+}
+
+message AProductList{
+    repeated AProductDetails products = 1;
+}
